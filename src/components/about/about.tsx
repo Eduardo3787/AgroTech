@@ -3,10 +3,10 @@ import numberOne from '../../assets/number-1-icon.svg'
 import numberTwo from '../../assets/number-2-icon.svg'
 import numberThree from '../../assets/number-3-icon.svg'
 import numberFour from '../../assets/number-4-icon.svg'
-import { useNavigate } from 'react-router-dom' // 👈 Adicionamos isso
+import { useNavigate } from 'react-router-dom' 
 
 export const About = () => {
-  const navigate = useNavigate() // 👈 Criamos o controle da navegação
+  const navigate = useNavigate() 
 
   return (
     <section className="w-full flex justify-center px-6 py-[120px]">
@@ -20,7 +20,7 @@ export const About = () => {
             responsabilidade social.
           </p>
           <button
-            onClick={() => navigate('/cadastro')} // 👈 Quando clicar, vai para /cadastro
+            onClick={() => navigate('/cadastro')} 
             className="w-[150px] text-[22px] bg-green-500 text-white px-[5px] py-[7px] rounded-full shadow hover:bg-green-600 transition"
           >
             Cadastre-se

@@ -8,6 +8,7 @@ export const TalkToUs = () => {
     message: "",
   });
 
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -113,6 +114,14 @@ const handleSubmit = (e: React.FormEvent) => {
           Submit
         </button>
       </form>
+
+      <section
+  id="fale-conosco"
+  
+/>
+
     </section>
   );
+
+  
 }

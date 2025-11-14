@@ -1,7 +1,7 @@
 import { categoriasCardProps, CategoryProps, TestimonyProps } from "../interfaces";
-import freshFruitsImg from '../assets/fresh-fruits.png'
-import flatLayImg from '../assets/flat-lay.png'
-import tomateImg from '../assets/tomato.svg'
+import freshFruitsImg from '../assets/fresh-fruits.png';
+import flatLayImg from '../assets/flat-lay.png';
+import tomateImg from '../assets/tomato.svg';
 import beansImg from '../assets/beans-icon.svg';
 import beefImg from '../assets/beef-icon.svg';
 import riceImg from '../assets/rice-icon.svg';
@@ -11,6 +11,15 @@ import isaqueImg from '../assets/isaque-testimony.png';
 import lauraImg from '../assets/laura-testimony.png';
 import mariImg from '../assets/mari-testimony.png';
 
+//  Novas imagens
+import melanciaImg from '../assets/melancia.png';
+import bananaImg from '../assets/banana.png';
+import abacaxiImg from '../assets/abacaxi.png';
+import berigeraImg from '../assets/berigera.png';
+import repolhoImg from '../assets/repolho.png';
+import couveImg from '../assets/couve.png';
+
+//  Depoimentos
 export const testimonials: TestimonyProps[] = [
   {
     nome: "Isaque Silva",
@@ -32,11 +41,13 @@ export const testimonials: TestimonyProps[] = [
   },
 ];
 
+//  Cards da seção “Categorias”
 export const categoriasCard: categoriasCardProps[] = [
-  { titulo: "Fritas Frescas", imagem: freshFruitsImg},
+  { titulo: "Fritas Frescas", imagem: freshFruitsImg },
   { titulo: "Hortaliças", imagem: flatLayImg },
 ];
 
+//  Categorias em Destaque (com novas frutas e verduras)
 export const categories: CategoryProps[] = [
   { nome: "Tomate", imagem: tomateImg },
   { nome: "Carne", imagem: beefImg },
@@ -44,4 +55,10 @@ export const categories: CategoryProps[] = [
   { nome: "Feijão", imagem: beansImg },
   { nome: "Óleo", imagem: soyBeansImg },
   { nome: "Macarrão", imagem: pastaImg },
+  { nome: "Melancia", imagem: melanciaImg },
+  { nome: "Banana", imagem: bananaImg },
+  { nome: "Abacaxi", imagem: abacaxiImg },
+  { nome: "Berinjela", imagem: berigeraImg },
+  { nome: "Repolho", imagem: repolhoImg },
+  { nome: "Couve", imagem: couveImg },
 ];

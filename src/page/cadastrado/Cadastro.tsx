@@ -1,7 +1,7 @@
 import { useState, FormEvent } from "react";
 import { Footer } from "../../components/footer/footer";
 
-// IMAGENS (src/assets)
+
 import mainImage from "../../assets/cadastro-main.png.png";
 import iconUser  from "../../assets/cadastro-icon1.png.png";
 import iconChart from "../../assets/cadastro-icon2.png.png";
@@ -50,7 +50,7 @@ export default function Cadastro() {
                 className="w-[360px] h-auto rounded-2xl object-cover"
               />
 
-              {/* Coluna de ícones (103x90) */}
+              {/* Coluna de ícones  */}
               <div className="flex flex-col items-center gap-4">
                 <img
                   src={iconUser}
@@ -179,7 +179,6 @@ export default function Cadastro() {
         </section>
       </div>
 
-      {/* FOOTER COMPLETO */}
       <Footer />
     </main>
   );
