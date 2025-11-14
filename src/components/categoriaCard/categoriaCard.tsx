@@ -6,7 +6,7 @@ export const CategoriaCard = ({ titulo, imagem }: CategoriaCardProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (titulo === "Frutas Frescas" || titulo === "Fritas Frescas") {
+    if (titulo === "Frutas Frescas" || titulo === "Frutas Frescas") {
       navigate("/frutas");
     } else if (titulo === "Hortaliças") {
       navigate("/hortaliças");

@@ -43,7 +43,7 @@ export const testimonials: TestimonyProps[] = [
 
 //  Cards da seção “Categorias”
 export const categoriasCard: categoriasCardProps[] = [
-  { titulo: "Fritas Frescas", imagem: freshFruitsImg },
+  { titulo: "Frutas Frescas", imagem: freshFruitsImg },
   { titulo: "Hortaliças", imagem: flatLayImg },
 ];
 
