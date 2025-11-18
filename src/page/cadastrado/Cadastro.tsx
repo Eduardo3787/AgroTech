@@ -1,9 +1,11 @@
 import { useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
+
 import { Footer } from "../../components/footer/footer";
 
-
 import mainImage from "../../assets/cadastro-main.png.png";
-import iconUser  from "../../assets/cadastro-icon1.png.png";
+import iconUser from "../../assets/cadastro-icon1.png.png";
 import iconChart from "../../assets/cadastro-icon2.png.png";
 
 type PessoaTipo = "juridica" | "fisica";
@@ -12,6 +14,8 @@ type Papel = "doador" | "beneficiario";
 export default function Cadastro() {
   const [pessoa, setPessoa] = useState<PessoaTipo>("juridica");
   const [papel, setPapel] = useState<Papel>("doador");
+
+  const navigate = useNavigate();
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -22,6 +26,29 @@ export default function Cadastro() {
     <main className="min-h-screen w-full bg-white">
       {/* CONTAINER */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-6">
+
+        {/* BOTÃO VOLTAR - ESTILIZADO */}
+        <button
+          onClick={() => navigate("/")}
+          className="
+            flex items-center gap-2
+            bg-white
+            border border-green-700/30
+            text-green-700
+            px-4 py-2
+            rounded-full
+            shadow-sm
+            hover:bg-green-700 hover:text-white
+            hover:shadow-md
+            transition-all duration-300
+            w-fit
+            mb-8
+          "
+        >
+          <ChevronLeft className="w-5 h-5" />
+          Voltar
+        </button>
+
         {/* TÍTULO + IMAGENS */}
         <section className="grid grid-cols-1 gap-8 md:grid-cols-12">
           <div className="md:col-span-7">
@@ -31,7 +58,11 @@ export default function Cadastro() {
             >
               Cadastre-se
             </h1>
-            <p className="mt-6 max-w-2xl leading-relaxed" style={{ color: "#6b6b6b" }}>
+
+            <p
+              className="mt-6 max-w-2xl leading-relaxed"
+              style={{ color: "#6b6b6b" }}
+            >
               Participe desse elo de solidariedade: junte-se ao nosso projeto que
               conecta quem quer donar alimentos com pessoas e instituições que
               realmente precisam. Seja você uma ONG, indivíduo ou instituição
@@ -40,17 +71,15 @@ export default function Cadastro() {
             </p>
           </div>
 
-          {/* IMAGEM + COLUNA DE ÍCONES LADO A LADO */}
+          {/* IMAGEM + COLUNA DE ÍCONES */}
           <div className="md:col-span-5 flex justify-end">
             <div className="flex items-center gap-6">
-              {/* Imagem principal */}
               <img
                 src={mainImage}
                 alt="Pessoa digitando em notebook"
                 className="w-[360px] h-auto rounded-2xl object-cover"
               />
 
-              {/* Coluna de ícones  */}
               <div className="flex flex-col items-center gap-4">
                 <img
                   src={iconUser}
@@ -75,7 +104,7 @@ export default function Cadastro() {
               className="rounded-2xl p-6 md:p-8"
               style={{ background: "#ecf5ef", border: "1px solid #d6eadd" }}
             >
-              {/* Radios: tipo de pessoa */}
+              {/* Radios pessoa */}
               <div className="mb-6 flex items-center gap-4">
                 <label className="inline-flex items-center gap-2">
                   <input
@@ -88,6 +117,7 @@ export default function Cadastro() {
                   />
                   <span style={{ color: "#6b6b6b" }}>Pessoa Jurídica</span>
                 </label>
+
                 <label className="inline-flex items-center gap-2">
                   <input
                     type="radio"
@@ -101,6 +131,7 @@ export default function Cadastro() {
                 </label>
               </div>
 
+              {/* FORM */}
               <form onSubmit={onSubmit} className="space-y-4">
                 <input
                   className="w-full rounded-xl border-0 bg-white/90 px-4 py-3 shadow-inner focus:outline-none focus:ring-2"
@@ -108,6 +139,7 @@ export default function Cadastro() {
                   placeholder="Nome"
                   required
                 />
+
                 <input
                   type="email"
                   className="w-full rounded-xl border-0 bg-white/90 px-4 py-3 shadow-inner focus:outline-none focus:ring-2"
@@ -115,13 +147,14 @@ export default function Cadastro() {
                   placeholder="Email"
                   required
                 />
+
                 <input
                   className="w-full rounded-xl border-0 bg-white/90 px-4 py-3 shadow-inner focus:outline-none focus:ring-2"
                   style={{ color: "#122900" }}
                   placeholder="Telefone"
                 />
 
-                {/* Radios: papel */}
+                {/* Radios papel */}
                 <div className="grid grid-cols-2 gap-3">
                   <label className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 ring-1 ring-slate-200">
                     <input
@@ -134,6 +167,7 @@ export default function Cadastro() {
                     />
                     <span style={{ color: "#6b6b6b" }}>Doador</span>
                   </label>
+
                   <label className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 ring-1 ring-slate-200">
                     <input
                       type="radio"
@@ -170,6 +204,7 @@ export default function Cadastro() {
             <h3 className="mb-2 font-semibold" style={{ color: "#122900" }}>
               ✍ Quem pode participar?
             </h3>
+
             <ul className="list-disc pl-5 space-y-1">
               <li>Pessoas físicas com alimentos para doar.</li>
               <li>ONGs, instituições sociais, igrejas e projetos comunitários.</li>

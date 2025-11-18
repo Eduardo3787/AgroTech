@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import logoIcon from "../../assets/logo-icon.svg";
-import { Phone, User, ArrowLeft } from "lucide-react"; 
+import { Menu, X, ArrowLeft } from "lucide-react";
 
 //  Importando todas as imagens das frutas
 import manga from "../../assets/manga.png";
@@ -25,17 +26,8 @@ import morango from "../../assets/morango.png";
 export default function Frutas() {
   const navigate = useNavigate();
 
-  const handleWhatsApp = () => {
-    window.open("https://wa.me/5511999999999", "_blank");
-  };
-
-  const handleCadastro = () => {
-    navigate("/cadastro");
-  };
-
-  const handleVoltarHome = () => {
-    navigate("/");
-  };
+  // ========================= MENU MOBILE =========================
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const frutas = [
     { nome: "Manga", imagem: manga },
@@ -60,62 +52,87 @@ export default function Frutas() {
 
   return (
     <div className="relative w-full min-h-screen bg-white font-sans overflow-hidden">
+
       {/* ================= HEADER ================= */}
-      <header className="w-full bg-emerald-950 text-white flex justify-between items-center px-8 py-4">
-        <div className="flex items-center gap-4">
-          {/* Logo */}
-          <img src={logoIcon} alt="AgroTech" className="w-10 h-10" />
+      <header
+        className="
+          w-full 
+          bg-[#0c2408] 
+          flex items-center justify-between
+          px-4 py-4
+          shadow-md
+        "
+      >
+        {/* Botão voltar */}
+        <button
+          onClick={() => navigate("/")}
+          className="text-white flex items-center gap-1"
+        >
+          <ArrowLeft className="w-6 h-6" />
+        </button>
 
-          {/* Botão voltar à página principal */}
-          <button
-            onClick={handleVoltarHome}
-            className="flex items-center gap-2 text-sm font-semibold text-white hover:text-emerald-300 transition"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Voltar à página principal</span>
-          </button>
-        </div>
+        {/* Logo central */}
+        <img
+          src={logoIcon}
+          alt="AgroTech"
+          className="w-[45px] h-[45px]"
+        />
 
-        {/* Links */}
-        <nav className="flex items-center gap-8 text-sm font-semibold">
-          <button
-            onClick={handleWhatsApp}
-            className="hover:text-emerald-300 transition"
-          >
-            FALE CONOSCO
-          </button>
-          <button
-            onClick={handleCadastro}
-            className="hover:text-emerald-300 transition"
-          >
-            ÁREA DO USUÁRIO
-          </button>
-        </nav>
-
-        {/* Ícones e botão */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={handleWhatsApp}
-            aria-label="WhatsApp"
-            className="hover:text-emerald-300 transition"
-          >
-            <Phone className="w-5 h-5" />
-          </button>
-          <button
-            onClick={handleCadastro}
-            aria-label="Usuário"
-            className="hover:text-emerald-300 transition"
-          >
-            <User className="w-5 h-5" />
-          </button>
-          <button
-            onClick={handleCadastro}
-            className="text-sm bg-slate-300 rounded-[16px] px-4 py-1 font-extrabold text-emerald-950 hover:bg-white transition"
-          >
-            DOAR AGORA
-          </button>
-        </div>
+        {/* Menu hamburguer */}
+        <button onClick={() => setMenuOpen(true)}>
+          <Menu className="text-white w-7 h-7" />
+        </button>
       </header>
+
+      {/* ================= MENU MOBILE ================= */}
+      {menuOpen && (
+        <>
+          {/* Fundo escuro */}
+          <div
+            onClick={() => setMenuOpen(false)}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+          ></div>
+
+          {/* Menu lateral */}
+          <div
+            className="
+              fixed top-0 right-0 h-full w-[260px] bg-white 
+              shadow-xl z-50 p-6 flex flex-col gap-6 
+              animate-slideLeft
+            "
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold text-emerald-900">
+                Menu
+              </h3>
+              <button onClick={() => setMenuOpen(false)}>
+                <X className="w-6 h-6 text-emerald-900" />
+              </button>
+            </div>
+
+            <button
+              className="text-left font-semibold text-emerald-900"
+              onClick={() => navigate("/")}
+            >
+              Página Principal
+            </button>
+
+            <button
+              className="text-left font-semibold text-emerald-900"
+              onClick={() => navigate("/cadastro")}
+            >
+              Área do Usuário
+            </button>
+
+            <button
+              className="text-left font-semibold text-emerald-900"
+              onClick={() => window.open("https://wa.me/5511999999999")}
+            >
+              Fale Conosco (WhatsApp)
+            </button>
+          </div>
+        </>
+      )}
 
       {/* ================= CONTEÚDO PRINCIPAL ================= */}
       <main className="relative flex flex-col lg:flex-row items-center justify-between px-10 lg:px-20 py-24">
@@ -124,42 +141,29 @@ export default function Frutas() {
             Frutas <br /> Frescas
           </h1>
 
-          <p className="mt-6 text-lg font-semibold text-green-950">
-            Juntos, podemos alimentar o mundo!
-          </p>
+          <p
+            className="mt-6 text-lg font-semibold text-black"
+            style={{ textShadow: "2px 2px 6px rgba(0, 255, 120, 0.9)" }}
+              >
+             Juntos, podemos alimentar o mundo!
+         </p>
 
-          <p className="mt-4 text-gray-700 leading-relaxed">
+
+
+         <p
+           className="mt-4 leading-relaxed text-black"
+           style={{ textShadow: "2px 2px 6px rgba(0, 255, 120, 0.9)" }}
+          >
             Na nossa plataforma, você pode doar alimentos que sobrariam,
             apoiar instituições sociais e ajudar famílias que enfrentam a fome.
             Aqui, cada gesto faz diferença: reduz o desperdício, fortalece
             comunidades e garante que mais pessoas tenham dignidade à mesa.
-          </p>
+         </p>
+ 
         </div>
 
         <div className="absolute top-0 right-0 w-[60%] h-full bg-emerald-950 rounded-bl-[400px]"></div>
       </main>
-
-      {/* ================= TEXTO INFORMATIVO ================= */}
-      <section className="relative w-full bg-white flex justify-center py-20 px-6">
-        <div className="max-w-5xl bg-white border border-emerald-200 shadow-lg rounded-2xl p-10 text-center">
-          <p className="text-lg text-gray-800 leading-relaxed">
-            <span className="font-semibold text-green-800">
-              As frutas são mais que sobremesas deliciosas,
-            </span>{" "}
-            são aliadas fundamentais da saúde. São ricas em fibras, vitaminas,
-            minerais e compostos bioativos que ajudam a regular o intestino,
-            fortalecer o sistema imunológico e prevenir doenças.
-          </p>
-
-          <p className="mt-6 text-lg text-gray-800 leading-relaxed">
-            E o melhor: temos uma variedade extraordinária ao nosso alcance.
-            Escolha agora suas frutas favoritas e experimente algo novo —{" "}
-            <span className="font-semibold text-green-800">
-              sua próxima mordida pode surpreender!
-            </span>
-          </p>
-        </div>
-      </section>
 
       {/* ================= LISTA DE FRUTAS ================= */}
       <section className="w-full flex justify-center py-20 px-8 bg-white">
@@ -167,9 +171,8 @@ export default function Frutas() {
           {frutas.map((fruta) => (
             <div
               key={fruta.nome}
-              className="relative flex flex-col items-center justify-end text-center bg-white border border-gray-200 rounded-xl p-4 pt-12 shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_20px_2px_rgba(16,185,129,0.5)]"
+              className="relative flex flex-col items-center justify-end text-center bg-white border border-gray-200 rounded-xl p-4 pt-12 shadow-md transition-transform duration-300 hover:scale-105"
             >
-              {/* Imagem sobreposta */}
               <div className="absolute -top-10">
                 <img
                   src={fruta.imagem}

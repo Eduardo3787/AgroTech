@@ -11,7 +11,6 @@ export function Header() {
 
   // Função de rolagem suave
   const scrollToSection = (id: string) => {
-  
     if (window.location.pathname !== "/") {
       navigate("/");
       setTimeout(() => scrollToSection(id), 400);
@@ -28,12 +27,12 @@ export function Header() {
     setIsMenuOpen(false);
   };
 
-  // Link para WhatsApp
+  // Link WhatsApp
   const openWhatsApp = () => {
-    window.open("https://wa.me/5599999999999", "_blank"); // numero whaspp
+    window.open("https://wa.me/5599999999999", "_blank");
   };
 
-  // Navegação para /cadastro
+  // Navegar para cadastro
   const goToCadastro = () => {
     navigate("/cadastro");
     setIsMenuOpen(false);
@@ -42,10 +41,11 @@ export function Header() {
   return (
     <header className="w-full fixed top-0 left-0 z-50 bg-[#0c1f03] text-white shadow-md">
       <div className="flex justify-between items-center max-w-[1920px] mx-auto py-3 px-6 lg:px-10">
+        
         {/* Logo */}
         <img src={logoIcon} alt="AgroTech Logo" className="w-10 h-auto" />
 
-        {/* Menu Desktop */}
+        {/* ===== MENU DESKTOP ===== */}
         <nav className="hidden lg:block">
           <ul className="flex items-center gap-8 text-sm font-semibold">
             <li
@@ -69,8 +69,9 @@ export function Header() {
           </ul>
         </nav>
 
-        {/* Área Direita */}
+        {/* ===== ÁREA DIREITA DESKTOP ===== */}
         <div className="hidden lg:flex items-center gap-4">
+          
           {/* Campo de pesquisa */}
           <div className="flex items-center bg-white rounded-full px-3 py-1">
             <input
@@ -81,7 +82,7 @@ export function Header() {
             <Search size={16} className="text-emerald-700" />
           </div>
 
-          {/* Ícone WhatsApp */}
+          {/* WhatsApp */}
           <button onClick={openWhatsApp}>
             <img
               src={phoneIcon}
@@ -90,7 +91,7 @@ export function Header() {
             />
           </button>
 
-          {/* Ícone Usuário */}
+          {/* Usuário */}
           <button onClick={goToCadastro}>
             <img
               src={userIcon}
@@ -99,28 +100,40 @@ export function Header() {
             />
           </button>
 
-          {/* Botão Doar */}
+          {/* DOAR AGORA */}
           <button className="text-sm bg-white text-emerald-900 font-bold rounded-full px-4 py-1 hover:bg-gray-200 transition">
             DOAR AGORA
           </button>
         </div>
 
-        {/* Botão Mobile */}
+        {/* ===== BOTÃO MOBILE (MENU / X) ===== */}
         <button
           className="block lg:hidden"
           onClick={() => setIsMenuOpen((prev) => !prev)}
           aria-label="Abrir menu"
         >
-          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {isMenuOpen ? (
+            <X size={28} className="text-white" />
+          ) : (
+            <Menu size={28} className="text-white" />
+          )}
         </button>
       </div>
 
-      {/* Menu Mobile */}
+      {/* ===== MENU MOBILE ===== */}
       <div
         className={`fixed top-0 left-0 h-screen w-full bg-[#0c1f03] text-white transition-transform duration-300 ease-in-out ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         } lg:hidden`}
       >
+        {/* Botão X dentro do menu */}
+        <button
+          onClick={() => setIsMenuOpen(false)}
+          className="absolute top-6 right-6"
+        >
+          <X size={32} className="text-white" />
+        </button>
+
         <div className="flex flex-col items-center justify-center gap-8 mt-24 text-lg font-semibold">
           <a onClick={() => scrollToSection("home")}>HOME</a>
           <a onClick={() => scrollToSection("fale-conosco")}>FALE CONOSCO</a>
@@ -133,6 +146,7 @@ export function Header() {
             <button onClick={goToCadastro}>
               <img src={userIcon} alt="Usuário" className="w-6 h-6" />
             </button>
+
             <button className="text-sm bg-white text-emerald-900 font-bold rounded-full px-4 py-1 hover:bg-gray-200 transition">
               DOAR AGORA
             </button>

@@ -5,7 +5,7 @@ import { Home } from './page'
 
 export function App() {
   return (
-    <div className="flex flex-col items-center h-screen">
+    <div className="flex flex-col items-center w-full">
       <Header />
       <Layout>
         <Home />

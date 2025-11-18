@@ -1,112 +1,151 @@
 import { useState } from "react";
-import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { categories } from "../../constants";
 
 export const Categories = () => {
+  const [index, setIndex] = useState(0);
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const toggleFavorite = (name: string) => {
     setFavorites((prev) =>
       prev.includes(name)
-        ? prev.filter((fav) => fav !== name)
+        ? prev.filter((item) => item !== name)
         : [...prev, name]
     );
   };
 
-  const itemsPerPage = 6;
-
-  const nextSlide = () => {
-    if (currentIndex + itemsPerPage < categories.length) {
-      setCurrentIndex(currentIndex + itemsPerPage);
+  const next = () => {
+    if (index < categories.length - 1) {
+      setIndex(index + 1);
     }
   };
 
-  const prevSlide = () => {
-    if (currentIndex - itemsPerPage >= 0) {
-      setCurrentIndex(currentIndex - itemsPerPage);
+  const prev = () => {
+    if (index > 0) {
+      setIndex(index - 1);
     }
   };
-
-  const visibleCategories = categories.slice(
-    currentIndex,
-    currentIndex + itemsPerPage
-  );
 
   return (
-    <section className="w-full max-w-[1920px] mx-auto py-12 text-center relative">
-      <div className="flex flex-col items-center justify-center w-full xl:pl-[200px]">
-        {/* Título */}
-        <div className="flex items-center flex-col xl:items-start">
-          <h2 className="text-3xl lg:text-[45px] font-bold text-green-600">
-            Categorias em Destaque
-          </h2>
-          <p className="text-gray-500 mt-2 text-base md:text-[22px]">
-            Descubra as categorias que fazem a diferença. Alimentos essenciais
-            para quem mais precisa!
-          </p>
-        </div>
+    <section className="w-full flex flex-col items-center py-20 overflow-hidden">
 
-        {/* Carrossel */}
-        <div className="relative w-full flex items-center justify-center mt-[100px] px-3">
-          {/* Botão Esquerda */}
-          <button
-            onClick={prevSlide}
-            disabled={currentIndex === 0}
-            className={`absolute left-4 z-10 bg-white rounded-full shadow p-2 hover:bg-gray-100 transition ${
-              currentIndex === 0 ? "opacity-40 cursor-not-allowed" : ""
-            }`}
-          >
-            <ChevronLeft className="text-green-700 w-6 h-6" />
-          </button>
+      {/* TÍTULO */}
+      <h2 className="text-3xl md:text-4xl font-bold text-green-600 mb-10 text-center">
+        Categorias em Destaque
+      </h2>
 
-          {/* Cards */}
-          <div className="flex justify-center items-center gap-6">
-            {visibleCategories.map((category) => (
+      <p className="text-gray-500 text-sm md:text-lg mb-12 text-center max-w-[750px]">
+        Descubra as categorias que fazem a diferença. Alimentos essenciais para quem mais precisa!
+      </p>
+
+      {/* CARROSSEL */}
+      <div className="relative w-full max-w-[1200px] flex items-center justify-center">
+
+        {/* SETA ESQUERDA */}
+        <button
+          onClick={prev}
+          disabled={index === 0}
+          className={`absolute left-0 z-20 bg-white shadow-xl rounded-full p-3 transition
+            ${index === 0 ? "opacity-30 cursor-not-allowed" : "hover:bg-gray-100"}`}
+        >
+          <ChevronLeft className="text-green-700 w-6 h-6" />
+        </button>
+
+        {/* CARDS COM EFEITO 3D */}
+        <div className="relative flex w-full justify-center items-center h-[330px]">
+
+          {categories.map((item, i) => {
+            const position = i - index;
+
+            // EFEITO 3D
+            let translateX = position * 230;
+            let scale = 1 - Math.abs(position) * 0.15;
+            let opacity = 1 - Math.abs(position) * 0.25;
+            let zIndex = 10 - Math.abs(position);
+            let rotateY = position * -10;
+
+            if (scale < 0.6) scale = 0.6;
+            if (opacity < 0) opacity = 0;
+
+            const isCenter = position === 0;
+
+            return (
               <div
-                key={category.nome}
-                className="relative flex flex-col justify-end items-center w-[200px] h-[230px] bg-white rounded-xl shadow-md p-4 hover:scale-105 transition"
+                key={item.nome}
+                style={{
+                  transform: `
+                    translateX(${translateX}px)
+                    scale(${scale})
+                    rotateY(${rotateY}deg)
+                  `,
+                  opacity,
+                  zIndex,
+                  boxShadow: isCenter
+                    ? "0px 0px 25px 8px rgba(0,160,70,0.4)"
+                    : "0px 0px 12px rgba(0,0,0,0.15)",
+                }}
+                className={`
+                  absolute transition-all duration-500
+                  bg-white rounded-2xl p-4 pt-12
+                  w-[220px] h-[260px] flex flex-col items-center justify-end
+                  border border-gray-200
+                  ${isCenter ? "animate-bounce-slow" : ""}
+                `}
               >
                 <img
-                  src={category.imagem}
-                  alt={category.nome}
-                  className="absolute top-[-55px] w-[100px] h-[100px] object-contain"
+                  src={item.imagem}
+                  alt={item.nome}
+                  className="absolute -top-10 w-[90px] h-[90px] object-contain drop-shadow-md"
                 />
 
-                <h3 className="font-semibold text-[20px] mt-[60px]">
-                  {category.nome}
-                </h3>
+                <p className="text-lg font-semibold text-gray-800 text-center mt-6">
+                  {item.nome}
+                </p>
 
-                {/* Ícone de coração */}
                 <button
-                  onClick={() => toggleFavorite(category.nome)}
+                  onClick={() => toggleFavorite(item.nome)}
                   className="mt-4"
                 >
                   <Heart
-                    className={`w-5 h-5 transition-all ${
-                      favorites.includes(category.nome)
-                        ? "fill-red-500 text-red-500"
-                        : "text-green-700 hover:text-red-400"
+                    className={`w-7 h-7 transition-all ${
+                      favorites.includes(item.nome)
+                        ? "text-red-500 fill-red-500"
+                        : "text-green-700"
                     }`}
                   />
                 </button>
               </div>
-            ))}
-          </div>
-
-          {/* Botão Direita */}
-          <button
-            onClick={nextSlide}
-            disabled={currentIndex + itemsPerPage >= categories.length}
-            className={`absolute right-4 z-10 bg-white rounded-full shadow p-2 hover:bg-gray-100 transition ${
-              currentIndex + itemsPerPage >= categories.length
-                ? "opacity-40 cursor-not-allowed"
-                : ""
-            }`}
-          >
-            <ChevronRight className="text-green-700 w-6 h-6" />
-          </button>
+            );
+          })}
         </div>
+
+        {/* SETA DIREITA */}
+        <button
+          onClick={next}
+          disabled={index === categories.length - 1}
+          className={`absolute right-0 z-20 bg-white shadow-xl rounded-full p-3 transition
+            ${
+              index === categories.length - 1
+                ? "opacity-30 cursor-not-allowed"
+                : "hover:bg-gray-100"
+            }`}
+        >
+          <ChevronRight className="text-green-700 w-6 h-6" />
+        </button>
+      </div>
+
+      {/* INDICADORES (BOLINHAS CLICÁVEIS) */}
+      <div className="flex gap-2 mt-8">
+        {categories.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            className={`
+              w-3 h-3 rounded-full transition transform
+              ${i === index ? "bg-green-600 scale-150" : "bg-gray-300 hover:bg-green-400"}
+            `}
+          ></button>
+        ))}
       </div>
     </section>
   );
